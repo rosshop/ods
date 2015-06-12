@@ -104,7 +104,7 @@ public:
 
 	T remove(int i) {
 		T x = null;
-		Node *u = sentinel, *del;
+		Node *u = sentinel, *del = nullptr;
 		int r = h;
 		int j = -1; // index of node u
 		while (r >= 0) {
