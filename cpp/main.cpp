@@ -10,6 +10,7 @@
 #include <cstdlib>
 
 #include <iostream>
+#include <bitset>
 using namespace std;
 
 #include "ArrayStack.h"
@@ -30,9 +31,9 @@ using namespace std;
 #include "RedBlackTree.h"
 #include "BTree.h"
 
-#include "BinaryTrie.h"
-#include "XFastTrie.h"
-#include "YFastTrie.h"
+//#include "BinaryTrie.h"
+//#include "XFastTrie.h"
+//#include "YFastTrie.h"
 
 #include "BinaryHeap.h"
 #include "MeldableHeap.h"
@@ -437,6 +438,17 @@ void sortTests(int n) {
 
 }
 
+namespace ts {
+	enum TEST_SWITCH {
+		Treap, YFastTrie, XFastTrie, BinaryTrie,
+		GraphTests, SortTests, ChainedHashTable,
+		LinearHashTable, BinaryTree, BinaryHeap,
+		MeldableHeap, RedBlackTree, ScapegoatTree,
+		BinarySearchTree1, SkiplistSSet, BinarySearchTree,
+		ArrayStack, FastArrayStack, ArrayDeque, DualArrayDeque,
+		RootishArrayStack, DLList, SEList, SkiplistList, numTests
+	};
+}
 
 int main(int argc, char **argv)
 {
@@ -444,6 +456,12 @@ int main(int argc, char **argv)
 
 	srand(0);
 
+	bitset<ts::numTests> onTests(0); // initialization: no test is on.
+	onTests.set(ts::ArrayStack);
+	onTests.set(ts::FastArrayStack);
+	onTests.set(ts::ArrayDeque);
+	onTests.set(ts::DualArrayDeque);
+	onTests.set(ts::RootishArrayStack);
 
 	/* {
 		for (int i = 1; i < 10; i++) {
@@ -454,34 +472,34 @@ int main(int argc, char **argv)
 		}
 	} */
 
-	{
+	if (onTests[ts::Treap]) {
 		cout << endl << "Treap<int>:" << endl;
 		Treap1<int> t;
 		btTests(t);
 		ssetTests(t, n, 0x0);
 	}
 
-	{
-		cout << endl << "YFastTrie<int>:" << endl;
-		YFastTrie<int> t;
-		ssetTests(t, n, 0x0);
-	}
+	//while (onTests[ts::YFastTrie]) {
+	//	cout << endl << "YFastTrie<int>:" << endl;
+	//	YFastTrie<int> t;
+	//	ssetTests(t, n, 0x0);
+	//}
 
-	{
-		cout << endl << "XFastTrie<int>:" << endl;
-		XFastTrie1<int> t;
-		ssetTests(t, n, 0x0);
-	}
+	//while (onTests[ts::XFastTrie]) {
+	//	cout << endl << "XFastTrie<int>:" << endl;
+	//	XFastTrie1<int> t;
+	//	ssetTests(t, n, 0x0);
+	//}
 
-	{
-		cout << endl << "BinaryTrie<int>:" << endl;
-		BinaryTrie1<int> t;
-		ssetTests(t, n, 0x0);
-	}
+	//if (onTests[ts::BinaryTrie]) {
+	//	cout << endl << "BinaryTrie<int>:" << endl;
+	//	BinaryTrie1<int> t;
+	//	ssetTests(t, n, 0x0);
+	//}
 
 
 
-	{
+	if (onTests[ts::GraphTests]) {
 		int n = 20;
 		cout << endl << "Graph Tests" << endl;
 		AdjacencyMatrix am(n);
@@ -492,120 +510,126 @@ int main(int argc, char **argv)
 		dfs2(al, 0);
 	}
 
-	sortTests(n);
+	if (onTests[ts::SortTests]) {
+		cout << endl << "Sort Tests" << endl;
+		sortTests(n);
+	}
 
-	{
+
+	if (onTests[ts::ChainedHashTable]) {
 		cout << endl << "ChainedHashTable<int>:" << endl;
 		ChainedHashTable<int> t;
 		usetTests(t, n);
 	}
 
-	{
+	if (onTests[ts::LinearHashTable]) {
 		cout << endl << "LinearHashTable<int>:" << endl;
 		LinearHashTable<int> t(INT_MIN, INT_MIN+1);
 		usetTests(t, n);
 	}
 
-	{
+	if (onTests[ts::BinaryTree]) {
 		cout << endl << "BinaryTree:" << endl;
 		BinaryTree<BTNode1> t;
 		btTests(t);
 	}
 
 
-	{
+	if (onTests[ts::BinaryHeap]) {
 		cout << endl << "BinaryHeap<int>:" << endl;
 		BinaryHeap<int> h;
 		heapTests(h, n);
 	}
 
-	{
+	if (onTests[ts::MeldableHeap]) {
 		cout << endl << "MeldableHeap<int>:" << endl;
 		MeldableHeap1<int> h;
 		heapTests(h, n);
 	}
 
-	{
+	if (onTests[ts::RedBlackTree]) {
 		cout << endl << "RedBlackTree<int>:" << endl;
 		RedBlackTree1<int> t;
 		btTests(t);
 		ssetTests(t, n, 0x0);
 	}
 
-	{
+	if (onTests[ts::ScapegoatTree]) {
 		cout << endl << "ScapegoatTree<int>:" << endl;
 		ScapegoatTree1<int> t;
 		btTests(t);
 		ssetTests(t, n, 0x0);
 	}
 
-	{
-		cout << endl << "BinarySearchTree<int>:" << endl;
-		BinarySearchTree1<int> t;
-		btTests(t);
-		ssetTests(t, n, 0x0);
-	}
+	//if (onTests[ts::BinarySearchTree1]) {
+	//	cout << endl << "BinarySearchTree<int>:" << endl;
+	//	BinarySearchTree1<int> t;
+	//	btTests(t);
+	//	ssetTests(t, n, 0x0);
+	//}
 
-	{
-		cout << endl << "Treap<int>:" << endl;
-		Treap1<int> t;
-		btTests(t);
-		ssetTests(t, n, 0x0);
-	}
-
-
-
-	{
+	if (onTests[ts::SkiplistSSet]) {
 		cout << endl << "SkiplistSet<int>:" << endl;
 		SkiplistSSet<int> s;
 		ssetTests(s, n, 0x0);
 	}
 
 
-	{
+	if (onTests[ts::BinarySearchTree]) {
 		BinarySearchTree<BSTNode1<int>,int> s;
 		ssetTests(s, n, 0x0);
 	}
 
 	// sqrtTests();
 
-	cout << endl << "ArrayStack<int>:" << endl;
-	ArrayStack<int> as;
-	listTests(as, n, RA);
-
-	cout << endl << "FastArrayStack<int>:" << endl;
-	FastArrayStack<int> fas;
-	listTests(fas, n, RA);
-
-	cout << endl << "ArrayDeque<int>:" << endl;
-	ArrayDeque<int> ad;
-	listTests(ad, n, RA|FM);
-
-	cout << endl << "DualArrayDeque<int>:" << endl;
-	DualArrayDeque<int> dad;
-	listTests(dad, n, RA|FM);
-
-	cout << endl << "RootishArrayStack<int>:" << endl;
-	RootishArrayStack<int> ras;
-	listTests(ras, n, RA);
-
-	cout << endl << "DLList<int>:" << endl;
-	DLList<int> dll;
-	listTests(dll, n, FM);
-
-	{
-	cout << endl << "SEList<int>:" << endl;
-	SEList<int> sel(50);
-	listTests(sel, n, FM);
+	if (onTests[ts::ArrayStack]) {
+		cout << endl << "ArrayStack<int>:" << endl;
+		ArrayStack<int> as;
+		//listTests(as, n, RA);
 	}
 
-	{
-	cout << endl << "SkiplistList<int>:" << endl;
-	SkiplistList<int> sel;
-	listTests(sel, n, RA|FM);
+	if (onTests[ts::FastArrayStack]) {
+		cout << endl << "FastArrayStack<int>:" << endl;
+		FastArrayStack<int> fas;
+		listTests(fas, n, RA);
 	}
 
+	if (onTests[ts::ArrayDeque]) {
+		cout << endl << "ArrayDeque<int>:" << endl;
+		ArrayDeque<int> ad;
+		listTests(ad, n, RA | FM);
+	}
 
+	if (onTests[ts::DualArrayDeque]) {
+		cout << endl << "DualArrayDeque<int>:" << endl;
+		DualArrayDeque<int> dad;
+		listTests(dad, n, RA | FM);
+	}
+
+	if (onTests[ts::RootishArrayStack]) {
+		cout << endl << "RootishArrayStack<int>:" << endl;
+		RootishArrayStack<int> ras;
+		listTests(ras, n, RA);
+	}
+
+	if (onTests[ts::DLList]) {
+		cout << endl << "DLList<int>:" << endl;
+		DLList<int> dll;
+		listTests(dll, n, FM);
+	}
+
+	if (onTests[ts::SEList]) {
+		cout << endl << "SEList<int>:" << endl;
+		SEList<int> sel(50);
+		listTests(sel, n, FM);
+	}
+
+	if (onTests[ts::SkiplistList]) {
+		cout << endl << "SkiplistList<int>:" << endl;
+		SkiplistList<int> sel;
+		listTests(sel, n, RA|FM);
+	}
+	
 	return 0;
 }
 
