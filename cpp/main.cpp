@@ -479,13 +479,13 @@ int main(int argc, char **argv)
 		ssetTests(t, n, 0x0);
 	}
 
-	//while (onTests[ts::YFastTrie]) {
+	//if (onTests[ts::YFastTrie]) {
 	//	cout << endl << "YFastTrie<int>:" << endl;
 	//	YFastTrie<int> t;
 	//	ssetTests(t, n, 0x0);
 	//}
 
-	//while (onTests[ts::XFastTrie]) {
+	//if (onTests[ts::XFastTrie]) {
 	//	cout << endl << "XFastTrie<int>:" << endl;
 	//	XFastTrie1<int> t;
 	//	ssetTests(t, n, 0x0);
